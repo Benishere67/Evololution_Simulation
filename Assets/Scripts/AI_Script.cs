@@ -38,7 +38,7 @@ public class AI_Script : MonoBehaviour {
             
             if(foodTarget == true) {
                 Debug.Log("PLAYER_DETECTED");
-                // Predator();
+                Predator();
                 foodTarget = false;
                 
 
@@ -98,14 +98,14 @@ public class AI_Script : MonoBehaviour {
         }
     }
 
-    // void Predator() {
+    void Predator() {
         
-    //     foreach (collider item in FoodCheck) {
-    //         if(other.gameObject.CompareTag("FOOD"))
+        foreach (collider item in FoodCheck) {
+            if(other.gameObject.CompareTag("FOOD"))
 
             
-    //     }
-    // }
+        }
+    }
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("FOOD")) {
