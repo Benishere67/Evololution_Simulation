@@ -11,9 +11,11 @@ public class DATA : MonoBehaviour {
     public static bool AllFoodEaten = false;
 
 
-
-
     public static int E_Stage = 0;
+
+    public static int FOODEATEN = 0;
+
+
 
     public static GameObject FOVPlayer;
 

@@ -18,6 +18,8 @@ public class AI_Script : MonoBehaviour {
 
     float radius = 3;
     int MTar = 0;
+
+    int FOODSTATUS = 0;
  
 
     Vector3 myVector;
@@ -29,6 +31,8 @@ public class AI_Script : MonoBehaviour {
     void Start() {
         agent = this.GetComponent<NavMeshAgent>();
 
+        var AgentRenderer = this.GetComponent<Renderer>();
+
     }
 
     void Update() {
@@ -37,7 +41,7 @@ public class AI_Script : MonoBehaviour {
             FindNearestFood();
             
             if(foodTarget == true) {
-                Debug.Log("PLAYER_DETECTED");
+                //Debug.Log("PLAYER_DETECTED");
                 Predator();
                 foodTarget = false;
                 
@@ -100,17 +104,34 @@ public class AI_Script : MonoBehaviour {
 
     void Predator() {
         
-        foreach (collider item in FoodCheck) {
-            if(other.gameObject.CompareTag("FOOD"))
+        Collider[] FoodCheck = Physics.OverlapSphere(this.gameObject.transform.position, radius, targetMask);
 
-            
+        foreach (Collider item in FoodCheck) {
+            if(item.gameObject.CompareTag("FOOD")) {
+                //Debug.Log("food is sensed");
+                
+                agent.SetDestination(item.gameObject.transform.position);
+
+                
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("FOOD")) {
             Destroy(other.gameObject);
+            FOODSTATUS++;
             HIP = false;
+        }
+
+        if(FOODSTATUS == 1) {
+            //AgentRenderer.material.SetColor("_Color", Color.orange);
+            this.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        }
+
+        if(FOODSTATUS == 2) {
+            //AgentRenderer.material.SetColor("_Color", Color.green);
+            this.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         }
     }
 }
