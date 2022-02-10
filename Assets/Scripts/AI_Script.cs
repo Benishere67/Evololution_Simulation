@@ -16,6 +16,10 @@ public class AI_Script : MonoBehaviour {
     bool firstWander = true;
     bool HIP = false;
 
+    float xBase = -38;
+    float yBase = -36;
+    float zBase = 2;
+
     float radius = 3;
     int MTar = 0;
 
@@ -51,8 +55,6 @@ public class AI_Script : MonoBehaviour {
                 F1Wander();
                 
             }
-        } else if(HIP == true && DATA.FOODCELLS[MTar] == null) {
-            HIP = false;
         }
     }
 
@@ -108,13 +110,34 @@ public class AI_Script : MonoBehaviour {
 
         foreach (Collider item in FoodCheck) {
             if(item.gameObject.CompareTag("FOOD")) {
-                //Debug.Log("food is sensed");
+                Debug.Log("food is sensed");
                 
                 agent.SetDestination(item.gameObject.transform.position);
+                HIP = true;
 
                 
             }
         }
+    }
+
+
+    void Gohome() {
+        if(this.gameObject.transform.position.z > 0 ) {
+
+        }
+
+        if(this.gameObject.transform.position.z < 0 ) {
+            
+        }
+
+        if(this.gameObject.transform.position.x > 0 ) {
+            
+        }
+
+        if(this.gameObject.transform.position.x < 0 ) {
+            
+        }
+
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -122,16 +145,17 @@ public class AI_Script : MonoBehaviour {
             Destroy(other.gameObject);
             FOODSTATUS++;
             HIP = false;
+            Gohome();
         }
 
         if(FOODSTATUS == 1) {
-            //AgentRenderer.material.SetColor("_Color", Color.orange);
-            this.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            
+            this.GetComponent<Renderer>().material.color = (Color.yellow);
         }
 
         if(FOODSTATUS == 2) {
-            //AgentRenderer.material.SetColor("_Color", Color.green);
-            this.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            
+            this.GetComponent<Renderer>().material.color = (Color.green);
         }
     }
 }
