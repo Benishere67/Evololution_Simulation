@@ -15,10 +15,7 @@ public class AI_Script : MonoBehaviour {
     bool foodTarget = false;
     bool firstWander = true;
     bool HIP = false;
-
-    float xBase = -38;
-    float yBase = -36;
-    float zBase = 2;
+    bool GoHomeTriggered = false;
 
     float radius = 3;
     int MTar = 0;
@@ -29,6 +26,7 @@ public class AI_Script : MonoBehaviour {
     Vector3 myVector;
     Vector3 theVector;
     Vector3 targetVector;
+    Vector3 GoHomeVector;
 
 
 
@@ -41,7 +39,7 @@ public class AI_Script : MonoBehaviour {
 
     void Update() {
         
-        if(DATA.Stage_Start == true && HIP == false) {
+        if(DATA.Stage_Start == true && HIP == false && GoHomeTriggered == false) {
             FindNearestFood();
             
             if(foodTarget == true) {
@@ -110,7 +108,7 @@ public class AI_Script : MonoBehaviour {
 
         foreach (Collider item in FoodCheck) {
             if(item.gameObject.CompareTag("FOOD")) {
-                Debug.Log("food is sensed");
+                //Debug.Log("food is sensed");
                 
                 agent.SetDestination(item.gameObject.transform.position);
                 HIP = true;
@@ -120,23 +118,32 @@ public class AI_Script : MonoBehaviour {
         }
     }
 
-
     void Gohome() {
         if(this.gameObject.transform.position.z > 0 ) {
+            GoHomeVector = new Vector3(Random.Range(-36,36), 2, 38);
 
+            agent.SetDestination(GoHomeVector);
         }
 
         if(this.gameObject.transform.position.z < 0 ) {
-            
+            GoHomeVector = new Vector3(Random.Range(-36,36), 2, -38);
+
+            agent.SetDestination(GoHomeVector);
         }
 
         if(this.gameObject.transform.position.x > 0 ) {
-            
+            GoHomeVector = new Vector3(38, 2, Random.Range(-36,36));
+
+            agent.SetDestination(GoHomeVector);
         }
 
         if(this.gameObject.transform.position.x < 0 ) {
-            
+            GoHomeVector = new Vector3(-38, 2, Random.Range(-36,36));
+
+            agent.SetDestination(GoHomeVector);
         }
+        GoHomeTriggered = true;
+        Debug.Log("going home");
 
     }
 
@@ -145,7 +152,7 @@ public class AI_Script : MonoBehaviour {
             Destroy(other.gameObject);
             FOODSTATUS++;
             HIP = false;
-            Gohome();
+            
         }
 
         if(FOODSTATUS == 1) {
@@ -156,6 +163,7 @@ public class AI_Script : MonoBehaviour {
         if(FOODSTATUS == 2) {
             
             this.GetComponent<Renderer>().material.color = (Color.green);
+            Gohome();
         }
     }
 }

@@ -17,12 +17,27 @@ public class AI_START : MonoBehaviour {
     private int Counter = 0;
 
 
-    float xBase = -38;
-    float yBase = -36;
-    float zBase = 2;
+    float xBase1 = 39;
+    float yBase1 = 2;
+    float zBase1 = 39;
+    
+    float xBase2 = -39;
+    float yBase2 = 2;
+    float zBase2 = 39;
+
+    float xBase3 = 39;
+    float yBase3 = 2;
+    float zBase3 = 39;
+
+    float xBase4 = 39;
+    float yBase4 = 2;
+    float zBase4 = -39;
+
+
+    
 
     void Start() {
-        DATA.CreatureArray = new Transform[10];
+        
     }
     
     void Update() {
@@ -30,17 +45,43 @@ public class AI_START : MonoBehaviour {
             if (DATA.Ai_START_Status == false) {
             
                 for(int i = 1; i <= 10; i++) {
-
-
                     Transform Creature = Instantiate(Creature_Prefab);
                     Creature.localScale = new Vector3(1, 1, 1);
                     Creature.SetParent(transform, false);
-                    Creature.position = new Vector3(xBase, zBase, yBase);
-                    DATA.CreatureArray[Counter] = Creature;
+                    Creature.position = new Vector3(xBase1, yBase1, zBase1);
 
-                    yBase+= 8;
+                    zBase1-= 8;
                     Counter++;
-                    //Debug.Log(i);
+                }
+
+                for(int i = 1; i <= 10; i++) {
+                    Transform Creature = Instantiate(Creature_Prefab);
+                    Creature.localScale = new Vector3(1, 1, 1);
+                    Creature.SetParent(transform, false);
+                    Creature.position = new Vector3(xBase2, yBase2, zBase2);
+
+                    zBase2-= 8;
+                    Counter++;
+                }
+
+                for(int i = 1; i <= 10; i++) {
+                    Transform Creature = Instantiate(Creature_Prefab);
+                    Creature.localScale = new Vector3(1, 1, 1);
+                    Creature.SetParent(transform, false);
+                    Creature.position = new Vector3(xBase3, yBase3, zBase3);
+
+                    xBase3-= 8;
+                    Counter++;
+                }
+
+                for(int i = 1; i <= 11; i++) {
+                    Transform Creature = Instantiate(Creature_Prefab);
+                    Creature.localScale = new Vector3(1, 1, 1);
+                    Creature.SetParent(transform, false);
+                    Creature.position = new Vector3(xBase4, yBase4, zBase4);
+
+                    xBase4-= 8;
+                    Counter++;
                 }
 
                 DATA.Ai_START_Status = true;
