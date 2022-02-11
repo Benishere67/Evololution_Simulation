@@ -120,46 +120,36 @@ public class AI_Script : MonoBehaviour {
 
     void Gohome() {
 
+        if(Mathf.Abs(this.gameObject.transform.position.x) > Mathf.Abs(this.gameObject.transform.position.z)) {
+            if(Mathf.Abs(this.gameObject.transform.position.x) > 0 ) {
+                GoHomeVector = new Vector3(39, 2, Random.Range(-39,39));
 
+                agent.SetDestination(GoHomeVector);
+            }
 
-        if(this.gameObject.transform.position.x) > 0) {
+            if(Mathf.Abs(this.gameObject.transform.position.x) < 0 ) {
+                GoHomeVector = new Vector3(-39, 2, Random.Range(-39,39));
 
-        } else if(this.gameObject.transform.position.x < 0) {
-            
-        }
-        
-        
-        this.gameObject.transform.position.z > 0
-        this.gameObject.transform.position.z < 0
-
-
-        if(this.gameObject.transform.position.z > 0 ) {
-            GoHomeVector = new Vector3(Random.Range(-39,39), 2, 39);
-
-            agent.SetDestination(GoHomeVector);
+                agent.SetDestination(GoHomeVector); 
+            }
         }
 
-        if(this.gameObject.transform.position.z < 0 ) {
-            GoHomeVector = new Vector3(Random.Range(-39,39), 2, -39);
+        if(Mathf.Abs(this.gameObject.transform.position.x) < Mathf.Abs(this.gameObject.transform.position.z)) {
+            if(Mathf.Abs(this.gameObject.transform.position.z) > 0 ) {
+                GoHomeVector = new Vector3(Random.Range(-39,39), 2, 39);
 
-            agent.SetDestination(GoHomeVector);
+                agent.SetDestination(GoHomeVector);
+            }
+
+            if(Mathf.Abs(this.gameObject.transform.position.z) < 0 ) {
+                GoHomeVector = new Vector3(Random.Range(-39,39), 2, -39);
+
+                agent.SetDestination(GoHomeVector);
+            }
         }
 
-        if(this.gameObject.transform.position.x > 0 ) {
-            GoHomeVector = new Vector3(39, 2, Random.Range(-39,39));
-
-            agent.SetDestination(GoHomeVector);
-        }
-
-        if(this.gameObject.transform.position.x < 0 ) {
-            GoHomeVector = new Vector3(-39, 2, Random.Range(-39,39));
-
-            agent.SetDestination(GoHomeVector);
-        }
         GoHomeTriggered = true;
         Debug.Log("going home");
-        
-
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -172,10 +162,10 @@ public class AI_Script : MonoBehaviour {
 
         if(FOODSTATUS == 1) {
             
-            this.GetComponent<Renderer>().material.color = (Color.yellow);
+            //this.GetComponent<Renderer>().material.color = (Color.yellow);
         }
 
-        if(FOODSTATUS == 2) {
+        if(FOODSTATUS >= 2) {
             
             this.GetComponent<Renderer>().material.color = (Color.green);
             Gohome();
