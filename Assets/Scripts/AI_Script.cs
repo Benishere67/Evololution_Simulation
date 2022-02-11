@@ -72,7 +72,7 @@ public class AI_Script : MonoBehaviour {
         if (agent.pathStatus==NavMeshPathStatus.PathComplete && agent.remainingDistance <= 0.1){
             //Debug.Log("more shit happening");
             myVector = this.gameObject.transform.position;
-            theVector = new Vector3(myVector.x + Random.Range(-7,7), myVector.y + Random.Range(-7,7), myVector.z);
+            theVector = new Vector3(myVector.x + Random.Range(-7,7), myVector.y, myVector.z + Random.Range(-7,7));
             for(var i = 0; i < 10;i++ ) {
                 if(theVector.x >= 40 || theVector.x >= -40 || theVector.z >= 40 || theVector.z >= -40 ) {
                     theVector = new Vector3(myVector.x + Random.Range(-7,7), myVector.y, myVector.z + Random.Range(-7,7));
@@ -89,10 +89,10 @@ public class AI_Script : MonoBehaviour {
         if(firstWander == true) {
             //Debug.Log("shit happening");
             myVector = this.gameObject.transform.position;
-            theVector = new Vector3(myVector.x + Random.Range(0,35), myVector.y, myVector.z + Random.Range(-11,11));
+            theVector = new Vector3(myVector.x + Random.Range(-7,7), myVector.y, myVector.z + Random.Range(-7,7));
             for(var i = 0; i < 10; i++ ) {
                 if(theVector.x >= 40 || theVector.x >= -40 || theVector.z >= 40 || theVector.z >= -40 ) {
-                    theVector = new Vector3(myVector.x + Random.Range(0,35), myVector.y, myVector.z + Random.Range(-11,11));
+                   theVector = new Vector3(myVector.x + Random.Range(-7,7), myVector.y, myVector.z + Random.Range(-7,7));
                 } else {
                     break;
                 }
@@ -119,31 +119,46 @@ public class AI_Script : MonoBehaviour {
     }
 
     void Gohome() {
+
+
+
+        if(this.gameObject.transform.position.x) > 0) {
+
+        } else if(this.gameObject.transform.position.x < 0) {
+            
+        }
+        
+        
+        this.gameObject.transform.position.z > 0
+        this.gameObject.transform.position.z < 0
+
+
         if(this.gameObject.transform.position.z > 0 ) {
-            GoHomeVector = new Vector3(Random.Range(-36,36), 2, 38);
+            GoHomeVector = new Vector3(Random.Range(-39,39), 2, 39);
 
             agent.SetDestination(GoHomeVector);
         }
 
         if(this.gameObject.transform.position.z < 0 ) {
-            GoHomeVector = new Vector3(Random.Range(-36,36), 2, -38);
+            GoHomeVector = new Vector3(Random.Range(-39,39), 2, -39);
 
             agent.SetDestination(GoHomeVector);
         }
 
         if(this.gameObject.transform.position.x > 0 ) {
-            GoHomeVector = new Vector3(38, 2, Random.Range(-36,36));
+            GoHomeVector = new Vector3(39, 2, Random.Range(-39,39));
 
             agent.SetDestination(GoHomeVector);
         }
 
         if(this.gameObject.transform.position.x < 0 ) {
-            GoHomeVector = new Vector3(-38, 2, Random.Range(-36,36));
+            GoHomeVector = new Vector3(-39, 2, Random.Range(-39,39));
 
             agent.SetDestination(GoHomeVector);
         }
         GoHomeTriggered = true;
         Debug.Log("going home");
+        
 
     }
 
