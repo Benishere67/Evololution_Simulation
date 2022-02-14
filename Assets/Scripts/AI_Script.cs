@@ -73,8 +73,8 @@ public class AI_Script : MonoBehaviour {
             //Debug.Log("more shit happening");
             myVector = this.gameObject.transform.position;
             theVector = new Vector3(myVector.x + Random.Range(-7,7), myVector.y, myVector.z + Random.Range(-7,7));
-            for(var i = 0; i < 10;i++ ) {
-                if(theVector.x >= 40 || theVector.x >= -40 || theVector.z >= 40 || theVector.z >= -40 ) {
+            for(var i = 0; i < 5000;i++ ) {
+                if(theVector.x >= 37 || theVector.x >= -37 || theVector.z >= 37 || theVector.z >= -37 ) {
                     theVector = new Vector3(myVector.x + Random.Range(-7,7), myVector.y, myVector.z + Random.Range(-7,7));
                 } else {
                     break;
@@ -90,8 +90,8 @@ public class AI_Script : MonoBehaviour {
             //Debug.Log("shit happening");
             myVector = this.gameObject.transform.position;
             theVector = new Vector3(myVector.x + Random.Range(-7,7), myVector.y, myVector.z + Random.Range(-7,7));
-            for(var i = 0; i < 10; i++ ) {
-                if(theVector.x >= 40 || theVector.x >= -40 || theVector.z >= 40 || theVector.z >= -40 ) {
+            for(var i = 0; i < 5000; i++ ) {
+                if(theVector.x >= 37 || theVector.x >= -37 || theVector.z >= 37 || theVector.z >= -37 ) {
                    theVector = new Vector3(myVector.x + Random.Range(-7,7), myVector.y, myVector.z + Random.Range(-7,7));
                 } else {
                     break;
@@ -121,28 +121,28 @@ public class AI_Script : MonoBehaviour {
     void Gohome() {
 
         if(Mathf.Abs(this.gameObject.transform.position.x) > Mathf.Abs(this.gameObject.transform.position.z)) {
-            if(Mathf.Abs(this.gameObject.transform.position.x) > 0 ) {
-                GoHomeVector = new Vector3(39, 2, Random.Range(-39,39));
+            if(this.gameObject.transform.position.x > 0 ) {
+                GoHomeVector = new Vector3(39, 2, this.gameObject.transform.position.z);
 
                 agent.SetDestination(GoHomeVector);
             }
 
-            if(Mathf.Abs(this.gameObject.transform.position.x) < 0 ) {
-                GoHomeVector = new Vector3(-39, 2, Random.Range(-39,39));
+            if(this.gameObject.transform.position.x < 0 ) {
+                GoHomeVector = new Vector3(-39, 2, this.gameObject.transform.position.z);
 
                 agent.SetDestination(GoHomeVector); 
             }
         }
 
         if(Mathf.Abs(this.gameObject.transform.position.x) < Mathf.Abs(this.gameObject.transform.position.z)) {
-            if(Mathf.Abs(this.gameObject.transform.position.z) > 0 ) {
-                GoHomeVector = new Vector3(Random.Range(-39,39), 2, 39);
+            if(this.gameObject.transform.position.z > 0 ) {
+                GoHomeVector = new Vector3(this.gameObject.transform.position.x, 2, 39);
 
                 agent.SetDestination(GoHomeVector);
             }
 
-            if(Mathf.Abs(this.gameObject.transform.position.z) < 0 ) {
-                GoHomeVector = new Vector3(Random.Range(-39,39), 2, -39);
+            if(this.gameObject.transform.position.z < 0 ) {
+                GoHomeVector = new Vector3(this.gameObject.transform.position.x, 2, -39);
 
                 agent.SetDestination(GoHomeVector);
             }
@@ -153,7 +153,7 @@ public class AI_Script : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("FOOD")) {
+        if (other.gameObject.CompareTag("FOOD") && GoHomeTriggered == false) {
             Destroy(other.gameObject);
             FOODSTATUS++;
             HIP = false;
@@ -162,7 +162,7 @@ public class AI_Script : MonoBehaviour {
 
         if(FOODSTATUS == 1) {
             
-            //this.GetComponent<Renderer>().material.color = (Color.yellow);
+            this.GetComponent<Renderer>().material.color = (Color.yellow);
         }
 
         if(FOODSTATUS >= 2) {
