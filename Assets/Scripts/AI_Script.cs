@@ -18,7 +18,7 @@ public class AI_Script : MonoBehaviour {
     bool GoHomeTriggered = false;
 
     float radius = 3;
-    int MTar = 0;
+    float ENERGY = 70;
 
     int FOODSTATUS = 0;
  
@@ -51,8 +51,19 @@ public class AI_Script : MonoBehaviour {
             } else {
                 Wander();
                 F1Wander();
-                
+                //Debug.Log(ENERGY);
+
+                if(ENERGY <= 0) {
+                    DEATH();
+                }
             }
+        } else if(HIP == true && agent.isPathStale == true) {
+            Wander();
+            F1Wander();
+
+        }
+        if (DATA.Stage_Start == true && DATA.Stage_End == true) {
+            DEATH();
         }
     }
 
@@ -80,7 +91,10 @@ public class AI_Script : MonoBehaviour {
                     break;
                 }
             }
+            float dist = Vector3.Distance(myVector, theVector);
+            ENERGY -= Mathf.Abs(dist);
             agent.SetDestination(theVector);
+            //ENERGY--;
         }
     }
 
@@ -97,8 +111,13 @@ public class AI_Script : MonoBehaviour {
                     break;
                 }
             }
+
+            float dist = Vector3.Distance(myVector, theVector);
+            ENERGY -= dist;
             agent.SetDestination(theVector);
             firstWander = false;
+            
+            //ENERGY--;
         }
     }
 
@@ -118,6 +137,20 @@ public class AI_Script : MonoBehaviour {
         }
     }
 
+    void DEATH() {
+        
+        agent.ResetPath();
+        agent.isStopped = true;
+        this.GetComponent<Renderer>().material.color = (Color.red);
+        
+        StartCoroutine(KILLSCRIPT());
+    }
+
+    public IEnumerator KILLSCRIPT() {
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
+
+    }
     void Gohome() {
 
         if(Mathf.Abs(this.gameObject.transform.position.x) > Mathf.Abs(this.gameObject.transform.position.z)) {
@@ -149,7 +182,7 @@ public class AI_Script : MonoBehaviour {
         }
 
         GoHomeTriggered = true;
-        Debug.Log("going home");
+        //Debug.Log("going home");
     }
 
     private void OnTriggerEnter(Collider other) {

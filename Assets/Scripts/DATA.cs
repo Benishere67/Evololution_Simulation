@@ -8,6 +8,7 @@ public class DATA : MonoBehaviour {
     public static bool FoodDeployStatus = false;
     public static bool Ai_START_Status = false;
     public static bool Stage_Start = false;
+    public static bool Stage_End = false;
     public static bool AllFoodEaten = false;
 
 
