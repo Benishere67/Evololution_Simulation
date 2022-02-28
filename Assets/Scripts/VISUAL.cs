@@ -22,8 +22,8 @@ public class VISUAL : MonoBehaviour {
         if (Input.GetKeyDown("space")) {
 
             DATA.PUBLIC_START = true;
-            Debug.Log("space");
-            
+            //Debug.Log("space");
+            DATA.FOODDELETES = false;
 
             
         }
@@ -33,7 +33,9 @@ public class VISUAL : MonoBehaviour {
             DATA.Stage_Start = true;
             DATA.Stage_End = false;
             DATA.E_Stage++;
-            Debug.Log("e");
+            //Debug.Log("e");
+            DATA.FOODDELETES = false;
+            
             
         }
 
@@ -41,7 +43,11 @@ public class VISUAL : MonoBehaviour {
 
             DATA.Stage_End = true;
             DATA.Stage_Start = false;
-            Debug.Log("q");
+            DATA.PUBLIC_START = false;
+            DATA.FoodDeployStatus = false;
+            DATA.FOODDELETES = true;
+
+            //Debug.Log("q");
             
             
         }
@@ -51,3 +57,4 @@ public class VISUAL : MonoBehaviour {
         Text.text = "E-Stage: " + DATA.E_Stage;
     }
 }
+    

@@ -10,6 +10,7 @@ public class DATA : MonoBehaviour {
     public static bool Stage_Start = false;
     public static bool Stage_End = false;
     public static bool AllFoodEaten = false;
+    public static bool FOODDELETES = false;
 
 
     public static int E_Stage = 0;

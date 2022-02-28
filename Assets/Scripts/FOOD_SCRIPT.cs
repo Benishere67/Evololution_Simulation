@@ -15,7 +15,7 @@ public class FOOD_SCRIPT : MonoBehaviour {
 
     void Start() {
         
-        DATA.FOODCELLS = new Transform[100];
+        //DATA.FOODCELLS = new Transform[100];
         
     }
 
@@ -35,7 +35,7 @@ public class FOOD_SCRIPT : MonoBehaviour {
                     FOOD.SetParent(transform, false);
                     FOOD.position = new Vector3(xRandom, 1, yRandom);
                     FOOD.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-                    DATA.FOODCELLS[foodCounter] = FOOD;
+                    //DATA.FOODCELLS[foodCounter] = FOOD;
 
                     foodCounter++;
                     //Debug.Log(i);

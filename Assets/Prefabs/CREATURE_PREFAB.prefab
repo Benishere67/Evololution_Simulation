@@ -135,3 +135,4 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 64
+  myPrefab: {fileID: 5682507240051210406}

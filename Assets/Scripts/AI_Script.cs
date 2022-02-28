@@ -12,6 +12,8 @@ public class AI_Script : MonoBehaviour {
 
     NavMeshAgent agent;
 
+    public GameObject myPrefab;
+
     bool foodTarget = false;
     bool firstWander = true;
     bool HIP = false;
@@ -21,6 +23,14 @@ public class AI_Script : MonoBehaviour {
     float ENERGY = 70;
 
     int FOODSTATUS = 0;
+    int FOODSTATUS_LCHECK = 0;
+    int E_Stage_LOCAL = 1;
+
+
+    //traits
+    float SPEED_TRAIT = 1;
+
+    
  
 
     Vector3 myVector;
@@ -34,6 +44,9 @@ public class AI_Script : MonoBehaviour {
         agent = this.GetComponent<NavMeshAgent>();
 
         var AgentRenderer = this.GetComponent<Renderer>();
+
+        this.GetComponent<Renderer>().material.color = (Color.black);
+        agent.speed = 15 * SPEED_TRAIT;
 
     }
 
@@ -62,8 +75,24 @@ public class AI_Script : MonoBehaviour {
             F1Wander();
 
         }
-        if (DATA.Stage_Start == true && DATA.Stage_End == true) {
+        if (DATA.Stage_Start == false && DATA.Stage_End == true && GoHomeTriggered == false) {
             DEATH();
+        }
+
+        if(DATA.Stage_Start == true && GoHomeTriggered == true && DATA.E_Stage == E_Stage_LOCAL + 1) {
+
+            GoHomeTriggered = false;
+            E_Stage_LOCAL++;
+            ENERGY = 70;
+            FOODSTATUS = 0;
+            
+            this.GetComponent<Renderer>().material.color = (Color.black);
+        }
+
+        if(FOODSTATUS >= 2 && this.GetComponent<Renderer>().material.color != (Color.green)) {
+            
+            Debug.Log("ERROR");
+            this.GetComponent<Renderer>().material.color = (Color.green);
         }
     }
 
@@ -131,6 +160,9 @@ public class AI_Script : MonoBehaviour {
                 
                 agent.SetDestination(item.gameObject.transform.position);
                 HIP = true;
+                
+
+                KILLCHECK();
 
                 
             }
@@ -149,6 +181,20 @@ public class AI_Script : MonoBehaviour {
     public IEnumerator KILLSCRIPT() {
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
+
+    }
+
+    void KILLCHECK() { 
+        StartCoroutine(CHECKSCRIPT());
+    }
+
+    public IEnumerator CHECKSCRIPT() {
+        yield return new WaitForSeconds(4f);
+        if(FOODSTATUS_LCHECK == FOODSTATUS) {
+            HIP = false;
+            Wander();
+            F1Wander();
+        }
 
     }
     void Gohome() {
@@ -201,6 +247,8 @@ public class AI_Script : MonoBehaviour {
         if(FOODSTATUS >= 2) {
             
             this.GetComponent<Renderer>().material.color = (Color.green);
+
+            Instantiate(myPrefab, this.gameObject.transform.position, Quaternion.identity);
             Gohome();
         }
     }
