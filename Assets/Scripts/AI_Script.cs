@@ -26,6 +26,8 @@ public class AI_Script : MonoBehaviour {
     int FOODSTATUS_LCHECK = 0;
     int E_Stage_LOCAL = 1;
 
+    bool RTR = false;
+
 
     //traits
     float SPEED_TRAIT = 1;
@@ -80,13 +82,8 @@ public class AI_Script : MonoBehaviour {
         }
 
         if(DATA.Stage_Start == true && GoHomeTriggered == true && DATA.E_Stage == E_Stage_LOCAL + 1) {
-
-            GoHomeTriggered = false;
-            E_Stage_LOCAL++;
-            ENERGY = 70;
-            FOODSTATUS = 0;
+            RESET();
             
-            this.GetComponent<Renderer>().material.color = (Color.black);
         }
 
         if(FOODSTATUS >= 2 && this.GetComponent<Renderer>().material.color != (Color.green)) {
@@ -197,6 +194,18 @@ public class AI_Script : MonoBehaviour {
         }
 
     }
+
+    void RESET() {
+        
+        GoHomeTriggered = false;
+        E_Stage_LOCAL++;
+        ENERGY = 70;
+        FOODSTATUS = 0;
+            
+        this.GetComponent<Renderer>().material.color = (Color.black);
+        Instantiate(myPrefab, this.gameObject.transform.position, Quaternion.identity);
+    }
+
     void Gohome() {
 
         if(Mathf.Abs(this.gameObject.transform.position.x) > Mathf.Abs(this.gameObject.transform.position.z)) {
@@ -248,7 +257,7 @@ public class AI_Script : MonoBehaviour {
             
             this.GetComponent<Renderer>().material.color = (Color.green);
 
-            Instantiate(myPrefab, this.gameObject.transform.position, Quaternion.identity);
+            RTR = true;
             Gohome();
         }
     }
