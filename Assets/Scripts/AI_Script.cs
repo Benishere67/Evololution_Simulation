@@ -211,13 +211,13 @@ public class AI_Script : MonoBehaviour {
         ENERGY = 70;
         FOODSTATUS = 0;
         foodTarget = false;
-        firstWander = true;
         HIP = false;
             
         this.GetComponent<Renderer>().material.color = (Color.black);
 
         GameObject child = GameObject.Instantiate(this.gameObject, transform.position, Quaternion.identity);
         child.GetComponent<AI_Script>().SPEED_TRAIT = SPEED_TRAIT * Random.Range(-1, 1);
+        child.GetComponent<AI_Script>().E_Stage_LOCAL = E_Stage_LOCAL;
 
     }
 
