@@ -5,13 +5,16 @@ using UnityEngine.AI;
 
 
 
-public class AI_Script : MonoBehaviour {
+public class AI_CHILDScript : MonoBehaviour {
     
+    public static bool PLAYER_DETECTED = false;
     public LayerMask targetMask;
 
     NavMeshAgent agent;
 
     public GameObject myPrefab;
+
+    public GameObject ParentAgent;
 
     bool foodTarget = false;
     bool firstWander = true;
@@ -29,12 +32,6 @@ public class AI_Script : MonoBehaviour {
     //traits
     float SPEED_TRAIT = 1;
 
-
-
-
-    bool afuvkingvar = false;
-
-
     
  
 
@@ -51,6 +48,9 @@ public class AI_Script : MonoBehaviour {
         var AgentRenderer = this.GetComponent<Renderer>();
 
         this.GetComponent<Renderer>().material.color = (Color.black);
+
+        //GameObject ParentAgent = gameObject.GetComponent<this.transform.parent.GameObject>
+
         agent.speed = 15 * SPEED_TRAIT;
 
     }
@@ -93,12 +93,6 @@ public class AI_Script : MonoBehaviour {
             
             Debug.Log("ERROR");
             this.GetComponent<Renderer>().material.color = (Color.green);
-        }
-
-        if(SPEED_TRAIT != 1 && afuvkingvar == false) {
-            Debug.Log("shits bussin");
-            afuvkingvar = true;
-
         }
     }
 
@@ -210,15 +204,9 @@ public class AI_Script : MonoBehaviour {
         E_Stage_LOCAL++;
         ENERGY = 70;
         FOODSTATUS = 0;
-        foodTarget = false;
-        firstWander = true;
-        HIP = false;
             
         this.GetComponent<Renderer>().material.color = (Color.black);
-
-        GameObject child = GameObject.Instantiate(this.gameObject, transform.position, Quaternion.identity);
-        child.GetComponent<AI_Script>().SPEED_TRAIT = SPEED_TRAIT * Random.Range(-1, 1);
-
+        Instantiate(myPrefab, this.gameObject.transform.position, Quaternion.identity);
     }
 
     void Gohome() {
