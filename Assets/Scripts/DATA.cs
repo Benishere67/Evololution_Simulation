@@ -27,5 +27,8 @@ public class DATA : MonoBehaviour {
     public static Transform[] FOODCELLS;
     public static Transform[] CreatureArray;
 
+    public static Transform[] speedTraitcounter;
+    public static int speedTraitcounterN = 0;
+
     
 }

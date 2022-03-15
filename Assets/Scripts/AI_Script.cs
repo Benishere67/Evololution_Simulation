@@ -32,9 +32,6 @@ public class AI_Script : MonoBehaviour {
 
 
 
-    bool afuvkingvar = false;
-
-
     
  
 
@@ -93,12 +90,6 @@ public class AI_Script : MonoBehaviour {
             
             Debug.Log("ERROR");
             this.GetComponent<Renderer>().material.color = (Color.green);
-        }
-
-        if(SPEED_TRAIT != 1 && afuvkingvar == false) {
-            Debug.Log("shits bussin");
-            afuvkingvar = true;
-
         }
     }
 
@@ -205,19 +196,26 @@ public class AI_Script : MonoBehaviour {
     }
 
     void RESET() {
-        
+
+
+
+
         GoHomeTriggered = false;
-        E_Stage_LOCAL++;
         ENERGY = 70;
         FOODSTATUS = 0;
-        foodTarget = false;
+        firstWander = true;
+        E_Stage_LOCAL++;
         HIP = false;
-            
+        foodTarget = false;
+
         this.GetComponent<Renderer>().material.color = (Color.black);
 
         GameObject child = GameObject.Instantiate(this.gameObject, transform.position, Quaternion.identity);
-        child.GetComponent<AI_Script>().SPEED_TRAIT = SPEED_TRAIT * Random.Range(-1, 1);
+        child.GetComponent<AI_Script>().SPEED_TRAIT = SPEED_TRAIT + Random.Range(-1, 1);
         child.GetComponent<AI_Script>().E_Stage_LOCAL = E_Stage_LOCAL;
+
+        // DATA.speedTraitcounter[DATA.speedTraitcounterN] = SPEED_TRAIT;
+        // DATA.speedTraitcounterN++;
 
     }
 

@@ -5,12 +5,14 @@ using UnityEngine;
 public class EVO_C : MonoBehaviour {
     
     void Start() {
+
+    
         
     }
 
 
     void Update() {
-
+        
 
         
     }

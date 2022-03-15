@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class VISUAL : MonoBehaviour {
 
@@ -29,6 +30,9 @@ public class VISUAL : MonoBehaviour {
         }
 
         if (Input.GetKeyDown("e") && DATA.Stage_Start == false) {
+
+            // Array.clear(DATA.speedTraitcounter,0,DATA.speedTraitcounterN);
+            // DATA.speedTraitcounterN = 0;
 
             DATA.Stage_Start = true;
             DATA.Stage_End = false;
