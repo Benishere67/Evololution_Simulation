@@ -22,13 +22,17 @@ public class DATA : MonoBehaviour {
     public static GameObject FOVPlayer;
 
 
-
-
     public static Transform[] FOODCELLS;
     public static Transform[] CreatureArray;
 
-    public static Transform[] speedTraitcounter;
-    public static int speedTraitcounterN = 0;
+
+    public static List<float> SpeedTraitCounter = new List<float>();
+    public static List<float> SightTraitCounter = new List<float>();
+    public static List<float> SizeTraitCounter = new List<float>();
+
+    public static int SpeedTraitCounter_Length = 0;
+
+
 
     
 }

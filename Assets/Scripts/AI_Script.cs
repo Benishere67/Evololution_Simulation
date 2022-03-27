@@ -28,12 +28,11 @@ public class AI_Script : MonoBehaviour {
 
     //traits
     float SPEED_TRAIT = 1;
+    float SIGHT_TRAIT = 1;
+    float SIZE_TRAIT = 1;
 
 
 
-
-    
- 
 
     Vector3 myVector;
     Vector3 theVector;
@@ -72,11 +71,9 @@ public class AI_Script : MonoBehaviour {
                     DEATH();
                 }
             }
-        } else if(HIP == true && agent.isPathStale == true) {
-            Wander();
-            F1Wander();
-
         }
+
+        
         if (DATA.Stage_Start == false && DATA.Stage_End == true && GoHomeTriggered == false) {
             DEATH();
         }
@@ -86,11 +83,6 @@ public class AI_Script : MonoBehaviour {
             
         }
 
-        if(FOODSTATUS >= 2 && this.GetComponent<Renderer>().material.color != (Color.green)) {
-            
-            Debug.Log("ERROR");
-            this.GetComponent<Renderer>().material.color = (Color.green);
-        }
     }
 
     void FindNearestFood() {
@@ -208,14 +200,18 @@ public class AI_Script : MonoBehaviour {
         HIP = false;
         foodTarget = false;
 
-        this.GetComponent<Renderer>().material.color = (Color.black);
+        this.GetComponent<Renderer>().material.color = (Color.blue);
 
         GameObject child = GameObject.Instantiate(this.gameObject, transform.position, Quaternion.identity);
         child.GetComponent<AI_Script>().SPEED_TRAIT = SPEED_TRAIT + Random.Range(-1, 1);
         child.GetComponent<AI_Script>().E_Stage_LOCAL = E_Stage_LOCAL;
 
-        // DATA.speedTraitcounter[DATA.speedTraitcounterN] = SPEED_TRAIT;
-        // DATA.speedTraitcounterN++;
+
+        DATA.SpeedTraitCounter.Add(SPEED_TRAIT);
+        DATA.SpeedTraitCounter.Add(SIGHT_TRAIT);
+        DATA.SpeedTraitCounter.Add(SIZE_TRAIT);
+
+        SpeedTraitCounter_Length++
 
     }
 
