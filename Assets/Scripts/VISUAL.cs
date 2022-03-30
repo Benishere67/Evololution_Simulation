@@ -15,6 +15,9 @@ public class VISUAL : MonoBehaviour {
     public TextMeshProUGUI Size;
 
     float AverageSpeedList;
+    float AverageSightList;
+    float AverageSizeList;
+
 
 
 
@@ -43,7 +46,7 @@ public class VISUAL : MonoBehaviour {
             DATA.SightTraitCounter.Clear();
             DATA.SizeTraitCounter.Clear();
 
-            SpeedTraitCounter_Length = 0;
+            DATA.SpeedTraitCounter_Length = 0;
 
             
         }
@@ -74,19 +77,24 @@ public class VISUAL : MonoBehaviour {
             
             
         }
+        
 
-        for (var i = 0; i < SpeedTraitCounter_Length; i++) {
+        AverageSpeedList = 0;
 
-            
+        for (var i = 0; i < DATA.SpeedTraitCounter_Length; i++) {
+
+            AverageSpeedList += DATA.SpeedTraitCounter[i];
+            Debug.Log(DATA.SpeedTraitCounter[i]);
 
         }
-        AverageSpeedList = DATA.SpeedTraitCounter.Av
+
+        AverageSpeedList = AverageSpeedList / DATA.SpeedTraitCounter_Length;
 
         Text.text = "E-Stage: " + DATA.E_Stage;
 
-        Speed.text = "Average_Speed= " + AverageList;
-        Sight.text = "E-Stage: " + DATA.E_Stage;
-        Size.text = "E-Stage: " + DATA.E_Stage;
+        Speed.text = "Average_Speed= " + AverageSpeedList;
+        Sight.text = "Average_Sight= " + AverageSightList;
+        Size.text = "Average_Size= " + AverageSizeList;
 
         
     }

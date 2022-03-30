@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 
 
-public class AI_Script : MonoBehaviour {
+public class AI_DupScript : MonoBehaviour {
     
     public LayerMask targetMask;
 
@@ -27,9 +27,9 @@ public class AI_Script : MonoBehaviour {
 
 
     //traits
-    float SPEED_TRAIT = 1;
-    float SIGHT_TRAIT = 1;
-    float SIZE_TRAIT = 1;
+    float SPEED_TRAIT;
+    float SIGHT_TRAIT;
+    float SIZE_TRAIT;
 
 
 
