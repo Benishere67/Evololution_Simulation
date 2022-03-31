@@ -30,7 +30,7 @@ public class DATA : MonoBehaviour {
     public static List<float> SightTraitCounter = new List<float>();
     public static List<float> SizeTraitCounter = new List<float>();
 
-    public static int SpeedTraitCounter_Length = 0;
+    public static int EVOLUTTIONCOUNTER_Length = 0;
 
 
 

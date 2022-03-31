@@ -18,8 +18,7 @@ public class AI_Script : MonoBehaviour {
     bool HIP = false;
     bool GoHomeTriggered = false;
 
-    float radius = 3;
-    float ENERGY = 70;
+    float ENERGY = 100;
 
     int FOODSTATUS = 0;
     int FOODSTATUS_LCHECK = 0;
@@ -28,8 +27,10 @@ public class AI_Script : MonoBehaviour {
 
     //traits
     float SPEED_TRAIT = 1;
-    float SIGHT_TRAIT = 1;
+    float SIGHT_TRAIT = 4;
     float SIZE_TRAIT = 1;
+
+    //vector3 SIGHT_TRAITScale = transform.localScale;
 
 
 
@@ -48,6 +49,14 @@ public class AI_Script : MonoBehaviour {
 
         this.GetComponent<Renderer>().material.color = (Color.black);
         agent.speed = 15 * SPEED_TRAIT;
+
+        this.transform.localScale = new Vector3(SIZE_TRAIT,SIZE_TRAIT,SIZE_TRAIT);
+
+        DATA.SpeedTraitCounter.Add(SPEED_TRAIT);
+        DATA.SightTraitCounter.Add(SIGHT_TRAIT);
+        DATA.SizeTraitCounter.Add(SIZE_TRAIT);
+
+        DATA.EVOLUTTIONCOUNTER_Length++;
 
     }
 
@@ -86,7 +95,7 @@ public class AI_Script : MonoBehaviour {
     }
 
     void FindNearestFood() {
-        Collider[] FoodCheck = Physics.OverlapSphere(this.gameObject.transform.position, radius, targetMask);
+        Collider[] FoodCheck = Physics.OverlapSphere(this.gameObject.transform.position, SIGHT_TRAIT, targetMask);
 
         if (FoodCheck.Length != 0) {
             foodTarget = true;
@@ -110,7 +119,7 @@ public class AI_Script : MonoBehaviour {
                 }
             }
             float dist = Vector3.Distance(myVector, theVector);
-            ENERGY -= Mathf.Abs(dist);
+            ENERGY -= Mathf.Abs(dist) * SPEED_TRAIT * SIZE_TRAIT + SIGHT_TRAIT;
             agent.SetDestination(theVector);
             //ENERGY--;
         }
@@ -131,17 +140,17 @@ public class AI_Script : MonoBehaviour {
             }
 
             float dist = Vector3.Distance(myVector, theVector);
-            ENERGY -= dist;
+            ENERGY -= dist * SPEED_TRAIT * SIZE_TRAIT + SIGHT_TRAIT;
             agent.SetDestination(theVector);
             firstWander = false;
             
-            //ENERGY--;
+            
         }
     }
 
     void Predator() {
         
-        Collider[] FoodCheck = Physics.OverlapSphere(this.gameObject.transform.position, radius, targetMask);
+        Collider[] FoodCheck = Physics.OverlapSphere(this.gameObject.transform.position, SIGHT_TRAIT, targetMask);
 
         foreach (Collider item in FoodCheck) {
             if(item.gameObject.CompareTag("FOOD")) {
@@ -193,7 +202,7 @@ public class AI_Script : MonoBehaviour {
 
 
         GoHomeTriggered = false;
-        ENERGY = 70;
+        ENERGY = 100;
         FOODSTATUS = 0;
         firstWander = true;
         E_Stage_LOCAL++;
@@ -203,15 +212,12 @@ public class AI_Script : MonoBehaviour {
         this.GetComponent<Renderer>().material.color = (Color.blue);
 
         GameObject child = GameObject.Instantiate(this.gameObject, transform.position, Quaternion.identity);
-        child.GetComponent<AI_Script>().SPEED_TRAIT = this.GetComponent<AI_Script>().SPEED_TRAIT + Random.Range(-1, 1);
+        child.GetComponent<AI_Script>().SPEED_TRAIT = this.GetComponent<AI_Script>().SPEED_TRAIT + Random.Range(-0.1f, 0.1f);
+        child.GetComponent<AI_Script>().SIGHT_TRAIT = this.GetComponent<AI_Script>().SIGHT_TRAIT + Random.Range(-0.1f, 0.1f);
+        child.GetComponent<AI_Script>().SIZE_TRAIT = this.GetComponent<AI_Script>().SIZE_TRAIT + Random.Range(-0.1f, 0.1f);
         child.GetComponent<AI_Script>().E_Stage_LOCAL = E_Stage_LOCAL;
+        
 
-
-        DATA.SpeedTraitCounter.Add(SPEED_TRAIT);
-        DATA.SpeedTraitCounter.Add(SIGHT_TRAIT);
-        DATA.SpeedTraitCounter.Add(SIZE_TRAIT);
-
-        DATA.SpeedTraitCounter_Length++;
 
     }
 
